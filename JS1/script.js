@@ -4,7 +4,7 @@ while (true) {
 
     if (first != first * 1) {
         alert('Первый ввод - не число');
-        break;
+        break; //коммент: выходит из цикла
     }
 
     if (second != second * 1) {
