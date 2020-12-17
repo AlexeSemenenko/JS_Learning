@@ -5,9 +5,10 @@ let apartment = prompt('Введите номер квартиры');
 
 if (numOfStoreys != numOfStoreys * 1 || numOfEntrances != numOfEntrances * 1 ||
     numOfApartments != numOfApartments * 1 || apartment != apartment * 1) {
-    alert('Что-то пошло не так, введите данные повторно');
+    alert('Что-то пошло не так, введите данные повторно'); //коммент: можно добавить проверку на целочисленность
 
 } else {
+    //коммент: неправильный результат при numOfStoreys = 20, numOfEntrances = 1, numOfApartments = 1, apartment = 20.
     let entrance = Math.floor((Math.floor(apartment / numOfApartments) + 1) / numOfStoreys) + 1;
 
     if (entrance > numOfEntrances) {
