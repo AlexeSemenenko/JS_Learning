@@ -4,12 +4,12 @@ while (true) {
 
     if (first != first * 1) {
         alert('Первый ввод - не число');
-        break;
+        continue;
     }
 
     if (second != second * 1) {
         alert('Второй ввод - не число');
-        break;
+        continue;
     }
 
     if (first === second) {
