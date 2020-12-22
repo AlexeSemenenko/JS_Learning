@@ -1,3 +1,4 @@
+//к
 const checkRectangle = points => {
     if (points[0].x === points[1].x && points[1].y === points[2].y && points[2].x === points[3].x
         && points[3].y === points[0].y) {
