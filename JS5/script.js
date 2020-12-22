@@ -1,4 +1,4 @@
-//к
+// прямоугольник может находится не только параллельно осям координат. например (0,4); (5,9); (7,7); (2,2) - тоже прямоугольник. Аалогично с checkPoint
 const checkRectangle = points => {
     if (points[0].x === points[1].x && points[1].y === points[2].y && points[2].x === points[3].x
         && points[3].y === points[0].y) {
