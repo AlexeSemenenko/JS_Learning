@@ -79,11 +79,12 @@ input[type="checkbox"]:checked + .todolist__label {
     font-size: 18px;
     width: 55px;
     height: 25px;
+    margin-left: 5px;
 }
 
 .todolist__edit-button {
     background-color: #dee2e5;
-    margin-left: 3%;
+    margin-left: 30px;
     font-size: 18px;
     width: 55px;
     height: 25px;
