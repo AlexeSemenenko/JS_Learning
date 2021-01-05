@@ -85,8 +85,6 @@ const deleteItem = (event) => {
     const mainList = deleteForm.parentNode
 
     mainList.removeChild(deleteForm)
-
-    alert(notes)
 }
 
 // const editItem = (event) => {
