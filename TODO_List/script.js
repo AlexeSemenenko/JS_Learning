@@ -1,22 +1,22 @@
-let notes = ['дело по стандарту']
 let counter = 0
+let position
 
-const createItem = i => {
+const createItem = value => {
     const form = document.createElement("form")
 
 
     const checkbox = document.createElement("input")
     checkbox.className = 'todolist__checkbox'
     checkbox.type = 'checkbox'
-    checkbox.id = '' + counter
+    checkbox.id = 'todolist_item_id_' + counter
 
     form.append(checkbox)
 
 
     const label = document.createElement("label")
     label.className = 'todolist__label'
-    label.htmlFor = '' + counter
-    label.append(notes[i])
+    label.htmlFor = 'todolist_item_id_' + counter
+    label.append(value)
 
     form.append(label)
 
@@ -43,40 +43,16 @@ const createItem = i => {
     return form
 }
 
-const createAllItems = () => {
-    let todolist = document.querySelector('.todolist')
-
-    for (let i = 0; i < notes.length; i++) {
-        todolist.append(createItem(i))
-        counter++
-    }
-}
-
-const deleteAllItems = () => {
-    let todolist = document.querySelector('.todolist')
-
-    for (let i = 0; i < notes.length; i++) {
-        todolist.lastChild.remove()
-    }
-}
-
-const addNewItem = index => {
-    let todolist = document.querySelector('.todolist')
-    todolist.append(createItem(index))
-}
-
-const getItemData = () => {
+const saveItemData = () => {
     const item = document.querySelector('.add-form__input-field')
 
     if (item.value !== '') {
-        if (!notes.includes(item.value)) {
-            notes.push(item.value)
-            addNewItem(notes.length - 1)
-            item.value = ''
-            counter++
-        } else {
-            alert('This item already exists')
-        }
+        let todolist = document.querySelector('.todolist')
+        todolist.append(createItem(item.value))
+
+        item.value = ''
+
+        counter++
     } else {
         alert('Enter anything')
     }
@@ -88,12 +64,6 @@ const deleteItem = (event) => {
     if (target.className !== 'todolist__delete-button button') {
         return
     }
-
-    const deleteValue = target.parentNode.querySelector('.todolist__label').innerHTML
-
-    const index = notes.indexOf(deleteValue)
-
-    notes.splice(index, 1)
 
     const deleteForm = target.parentNode
     const mainList = deleteForm.parentNode
@@ -112,23 +82,16 @@ const editItem = (event) => {
     document.querySelector('.add-form__edit-button').disabled = false
 
     const editForm = target.parentNode
-    const editValue = editForm.querySelector('.todolist__label').innerHTML
+    document.querySelector('.add-form__input-field').value = editForm.querySelector('.todolist__label').innerHTML
 
-    document.querySelector('.add-form__input-field').value = editValue
-
-    const index = notes.indexOf(editValue)
-    notes[index] = ''
+    position = editForm.querySelector('.todolist__checkbox').id
 }
 
-const refreshPage = () => {
+const refreshItem = () => {
     const newValue = document.querySelector('.add-form__input-field').value
 
     if (newValue !== '') {
-        const index = notes.indexOf('')
-        notes[index] = newValue
-
-        deleteAllItems()
-        createAllItems()
+        document.getElementById(position).closest('form').querySelector('.todolist__label').innerHTML = newValue
 
         document.querySelector('.add-form__save-button').disabled = false
         document.querySelector('.add-form__edit-button').disabled = true
@@ -140,11 +103,10 @@ const refreshPage = () => {
 }
 
 window.onload = () => {
-    createAllItems()
     document.querySelector('.add-form__edit-button').disabled = true
 
-    document.querySelector('.add-form__save-button').addEventListener('click', getItemData)
-    document.querySelector('.add-form__edit-button').addEventListener('click', refreshPage)
+    document.querySelector('.add-form__save-button').addEventListener('click', saveItemData)
+    document.querySelector('.add-form__edit-button').addEventListener('click', refreshItem)
 
     document.querySelector('.todolist').addEventListener('click', deleteItem)
     document.querySelector('.todolist').addEventListener('click', editItem)
