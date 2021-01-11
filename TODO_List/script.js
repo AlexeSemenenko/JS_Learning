@@ -52,6 +52,14 @@ const createAllItems = () => {
     }
 }
 
+const deleteAllItems = () => {
+    let todolist = document.querySelector('.todolist')
+
+    for (let i = 0; i < notes.length; i++) {
+        todolist.lastChild.remove()
+    }
+}
+
 const addNewItem = index => {
     let todolist = document.querySelector('.todolist')
     todolist.append(createItem(index))
@@ -61,10 +69,16 @@ const getItemData = () => {
     const item = document.querySelector('.add-form__input-field')
 
     if (item.value !== '') {
-        notes.push(item.value)
-        addNewItem(notes.length - 1)
-        item.value = ''
-        counter++
+        if (!notes.includes(item.value)) {
+            notes.push(item.value)
+            addNewItem(notes.length - 1)
+            item.value = ''
+            counter++
+        } else {
+            alert('This item already exists')
+        }
+    } else {
+        alert('Enter anything')
     }
 }
 
@@ -87,25 +101,51 @@ const deleteItem = (event) => {
     mainList.removeChild(deleteForm)
 }
 
-// const editItem = (event) => {
-//     const target = event.target
-//
-//     if (target.className !== 'todolist__edit-button button') {
-//         return
-//     }
-//
-//     const editId = target.parentNode.querySelector('.todolist__checkbox').id
-//
-//     const editForm = target.parentNode
-//
-//     document.querySelector('.add-form__input-field').value = editForm.querySelector('.todolist__label').innerHTML
-//
-//
-// }
+const editItem = (event) => {
+    const target = event.target
+
+    if (target.className !== 'todolist__edit-button button') {
+        return
+    }
+
+    document.querySelector('.add-form__save-button').disabled = true
+    document.querySelector('.add-form__edit-button').disabled = false
+
+    const editForm = target.parentNode
+    const editValue = editForm.querySelector('.todolist__label').innerHTML
+
+    document.querySelector('.add-form__input-field').value = editValue
+
+    const index = notes.indexOf(editValue)
+    notes[index] = ''
+}
+
+const refreshPage = () => {
+    const newValue = document.querySelector('.add-form__input-field').value
+
+    if (newValue !== '') {
+        const index = notes.indexOf('')
+        notes[index] = newValue
+
+        deleteAllItems()
+        createAllItems()
+
+        document.querySelector('.add-form__save-button').disabled = false
+        document.querySelector('.add-form__edit-button').disabled = true
+
+        document.querySelector('.add-form__input-field').value = ''
+    } else {
+        alert('Enter anything')
+    }
+}
 
 window.onload = () => {
     createAllItems()
+    document.querySelector('.add-form__edit-button').disabled = true
+
     document.querySelector('.add-form__save-button').addEventListener('click', getItemData)
+    document.querySelector('.add-form__edit-button').addEventListener('click', refreshPage)
+
     document.querySelector('.todolist').addEventListener('click', deleteItem)
-    //document.querySelector('.todolist').addEventListener('click', editItem)
+    document.querySelector('.todolist').addEventListener('click', editItem)
 }

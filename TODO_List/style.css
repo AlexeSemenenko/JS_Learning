@@ -102,8 +102,8 @@ input[type="checkbox"]:checked + .todolist__label {
     outline: none;
 }
 
-.add-form__save-button {
-    margin-left: 40%;
+.add-form__edit-button {
+    margin-left: 5px;
 }
 
 .footer {
@@ -128,6 +128,11 @@ input[type="checkbox"]:checked + .todolist__label {
     }
 
     .add-form__save-button {
-        margin-left: 25%;
+        margin-left: 28px;
+    }
+
+    .add-form__edit-button {
+        margin-top: 5px;
+        margin-left: 28px;
     }
 }
