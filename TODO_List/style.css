@@ -79,11 +79,12 @@ input[type="checkbox"]:checked + .todolist__label {
     font-size: 18px;
     width: 55px;
     height: 25px;
+    margin-left: 5px;
 }
 
 .todolist__edit-button {
     background-color: #dee2e5;
-    margin-left: 3%;
+    margin-left: 30px;
     font-size: 18px;
     width: 55px;
     height: 25px;
@@ -101,8 +102,8 @@ input[type="checkbox"]:checked + .todolist__label {
     outline: none;
 }
 
-.add-form__save-button {
-    margin-left: 40%;
+.add-form__edit-button {
+    margin-left: 5px;
 }
 
 .footer {
@@ -127,6 +128,11 @@ input[type="checkbox"]:checked + .todolist__label {
     }
 
     .add-form__save-button {
-        margin-left: 25%;
+        margin-left: 28px;
+    }
+
+    .add-form__edit-button {
+        margin-top: 5px;
+        margin-left: 28px;
     }
 }
