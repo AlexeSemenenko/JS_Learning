@@ -7,7 +7,7 @@ function ToDoList(props) {
         <div className="todolist">
             <ul>
                 {props.todos.map(item => {
-                    return <ListItem item={item} key={item.id} onChangeItem={props.onChangeItem}/>
+                    return <ListItem item={item} key={item.id} onChangeItem={props.onChangeItem} onDelete={props.onDeleteItem}/>
                 })}
             </ul>
         </div>
@@ -17,6 +17,7 @@ function ToDoList(props) {
 ToDoList.propTypes = {
     todos: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChangeItem: PropTypes.func.isRequired,
+    onDeleteItem: PropTypes.func.isRequired,
 }
 
 export default ToDoList

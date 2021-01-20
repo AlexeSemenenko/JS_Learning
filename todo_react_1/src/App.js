@@ -14,6 +14,7 @@ class App extends React.Component{
         this.onChangeText = this.onChangeText.bind(this)
         this.onSaveItem = this.onSaveItem.bind(this)
         this.onChangeDone = this.onChangeDone.bind(this)
+        this.onDeleteItem = this.onDeleteItem.bind(this)
     }
 
     onChangeText(e) {
@@ -37,26 +38,32 @@ class App extends React.Component{
         }))
     }
 
-    onChangeDone(e) {
-        this.setState(state => {
-            let array = state.todos.slice()
+    onChangeDone(id) {
+        let array = this.state.todos.slice()
 
-            array = array.map(item => {
-                if (item.id === e.target.id) {
-                    item.done = !item.done
-                }
-                return item
-            })
-
-            return {array}
+        array = array.map(item => {
+            if (item.id === id) {
+                item.done = !item.done
+            }
+            return item
         })
+
+        this.setState({todos: array})
+    }
+
+    onDeleteItem(id) {
+        let array = this.state.todos.slice()
+
+        array = array.filter(item => item.id !== id)
+
+        this.setState({todos: array})
     }
 
     render() {
         return (
             <div className="grid">
                 <Header/>
-                <ToDoList todos={this.state.todos} onChangeItem={this.onChangeDone}/>
+                <ToDoList todos={this.state.todos} onChangeItem={this.onChangeDone} onDeleteItem={this.onDeleteItem}/>
                 <AddForm onChange={this.onChangeText} onSave={this.onSaveItem} text={this.state.text}/>
                 <Footer/>
             </div>
