@@ -7,6 +7,8 @@ import ToDoList from "./ToDoList";
 export const ToDoListContext = React.createContext()
 export const AddFormContext = React.createContext()
 
+let counter = 0
+
 function App() {
     const [todos, setTodos] = useState([])
     const [text, setText] = useState('')
@@ -23,10 +25,11 @@ function App() {
         }
 
         setTodos([...todos, {
-            id: text.toString(),
+            id: 'todo_item' + counter,
             done: false,
             data: text
         }])
+        counter++
         setText('')
     }
 
