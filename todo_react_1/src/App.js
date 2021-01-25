@@ -4,6 +4,8 @@ import Footer from "./Footer";
 import ToDoList from "./ToDoList";
 import AddForm from "./AddForm";
 
+let counter = 0
+
 class App extends React.Component{
     constructor(props) {
         super(props);
@@ -33,10 +35,12 @@ class App extends React.Component{
         }
 
         const newItem = {
-            id: this.state.text.toString(),
+            id: 'todo_item' + counter,
             done: false,
             info: this.state.text
         }
+
+        counter++
 
         this.setState(state => ({
             todos: state.todos.concat(newItem),
