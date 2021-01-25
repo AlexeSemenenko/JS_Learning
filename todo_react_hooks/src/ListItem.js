@@ -1,21 +1,16 @@
 import React, {useContext} from "react"
-import {ToDoListContext} from "./App";
+import {ToDoListContext} from "./App"
+import cn from "classnames"
 
 export default function ListItem(props) {
     const context = useContext(ToDoListContext)
-
-    const labelStyles = ['todolist__label']
-
-    if (props.item.done) {
-        labelStyles.push('decoration-done')
-    }
 
     return (
         <li>
             <form>
                 <input className="todolist__checkbox" type="checkbox" id={props.item.id}
                        onChange={() => context.changeDone(props.item.id)}/>
-                <label className={labelStyles.join(' ')} htmlFor={props.item.id}>
+                <label className={cn('todolist__label', {'decoration-done': props.item.done})} htmlFor={props.item.id}>
                     {props.item.data}
                 </label>
                 <br/>
