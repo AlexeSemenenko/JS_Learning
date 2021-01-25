@@ -7,13 +7,12 @@ import ToDoList from "./ToDoList";
 export const ToDoListContext = React.createContext()
 export const AddFormContext = React.createContext()
 
-let counter = 0
-
 function App() {
     const [todos, setTodos] = useState([])
     const [text, setText] = useState('')
     const [editing, setEditing] = useState(false)
     const [target, setTarget] = useState('')
+    const [counter, setCounter] = useState(0)
 
     function changeText(e) {
         setText(e.target.value)
@@ -29,7 +28,8 @@ function App() {
             done: false,
             data: text
         }])
-        counter++
+        const k = counter + 1
+        setCounter(k)
         setText('')
     }
 
