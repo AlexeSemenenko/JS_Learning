@@ -1,19 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
+import cn from  "classnames"
 
 function ListItem(props) {
-    const labelStyles = ['todolist__label']
-
-    if (props.item.done) {
-        labelStyles.push('decoration-done')
-    }
-
     return (
         <li>
             <form>
                 <input className="todolist__checkbox" type="checkbox" id={props.item.id}
                        onChange={() => props.onChangeDone(props.item.id)}/>
-                <label className={labelStyles.join(' ')} htmlFor={props.item.id}>
+                <label className={cn('todolist__label', {'decoration-done': props.item.done})} htmlFor={props.item.id}>
                     {props.item.info}
                 </label>
                 <br/>
