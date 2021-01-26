@@ -3,6 +3,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AddForm from "./AddForm";
 import ToDoList from "./ToDoList";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 export const ToDoListContext = React.createContext()
 export const AddFormContext = React.createContext()
@@ -90,9 +92,11 @@ function App() {
       <div className="grid">
           <Header/>
 
-          <ToDoListContext.Provider value={{deleteItem, changeDone, editItem, todos}}>
-              <ToDoList/>
-          </ToDoListContext.Provider>
+          <DndProvider backend={HTML5Backend}>
+              <ToDoListContext.Provider value={{deleteItem, changeDone, editItem, todos, setTodos}}>
+                  <ToDoList/>
+              </ToDoListContext.Provider>
+          </DndProvider>
 
           <AddFormContext.Provider value={{changeText, saveItem, text, editing, saveEditableItem}}>
               <AddForm/>
