@@ -1,10 +1,8 @@
 import React, {useContext} from "react"
 import {ToDoListContext} from "./Context"
 import cn from "classnames"
-import {ItemTypes} from "./Types"
 import {useDrag, useDrop} from "react-dnd"
-import {TodoType} from "./Types"
-import {ListItemProps} from "./Types"
+import {ListItemProps, TodoType, ItemTypes} from "./Types"
 
 export const ListItem: React.FC<ListItemProps> = ({id, data, done, findToDo, moveToDo}) => {
     const context = useContext(ToDoListContext)
