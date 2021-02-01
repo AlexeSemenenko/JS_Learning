@@ -15,8 +15,8 @@ export type ListItemProps = {
     id: string
     data: string
     done: boolean
-    findToDo?: (id: string) => foundItem
-    moveToDo?: (id: string, atIndex: number) => void
+    index: number
+    moveToDo: (dragIndex: number, hoverIndex: number) => void
 }
 
 export type AddFormProps = {
@@ -37,4 +37,10 @@ export type ToDoListContextType = {
 
 export const ItemTypes = {
     TODO_ITEM: 'todo_item',
+}
+
+export type DragItemType = {
+    index: number
+    id: string
+    type: string
 }
