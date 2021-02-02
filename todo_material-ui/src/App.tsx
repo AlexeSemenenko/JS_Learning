@@ -1,10 +1,18 @@
-import React from 'react';
-import './App.css';
+import React from "react"
+import {Header} from "./Header"
+import {Footer} from "./Footer"
+import {ToDoContainer} from "./ToDoContainer"
+import {ThemeProvider} from "@material-ui/core/styles"
+import {theme} from "./Styles"
 
-function App() {
-  return (
-      <div>app</div>
-  );
+export const App: React.FC = () => {
+    return (
+        <ThemeProvider theme={theme}>
+            <div className="grid">
+                <Header/>
+                <ToDoContainer/>
+                <Footer/>
+            </div>
+        </ThemeProvider>
+    );
 }
-
-export default App;
