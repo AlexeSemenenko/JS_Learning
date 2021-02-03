@@ -25,6 +25,7 @@ export type AddFormProps = {
     text: string
     editing: boolean
     saveEditableItem: () => void
+    saveItemEnter: (event: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export type ToDoListContextType = {

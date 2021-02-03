@@ -5,6 +5,9 @@ import {ToDoListContext} from "./Context"
 import {ToDoList} from "./ToDoList"
 import {AddForm} from "./AddForm"
 import {TodoType} from "./Types"
+import Grid from "@material-ui/core/Grid"
+import {Typography, Box} from "@material-ui/core"
+import {useStyles} from "./Styles"
 
 export const ToDoContainer: React.FC = () => {
     const [todos, setTodos] = useState<TodoType[]>([])
@@ -85,16 +88,50 @@ export const ToDoContainer: React.FC = () => {
         setTarget('')
     }
 
+    function saveItemEnter(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === 'Enter' && !editing) {
+            event.preventDefault()
+            saveItem()
+        } else if (event.key === 'Enter' && editing) {
+            event.preventDefault()
+            saveEditableItem()
+        }
+
+    }
+
+    const classes = useStyles()
+
+    if (todos.length === 0) {
+        return (
+            <>
+                <Grid item sm={6} xs={8} className={classes.emptyBox}>
+                    <Box>
+                        <Typography className={classes.emptyBox__text}>The to-do list is empty. It's time to add something!</Typography>
+                    </Box>
+                </Grid>
+
+                <Grid item sm={3} xs={3}>
+                    <AddForm text={text} editing={editing} saveItem={saveItem}
+                             changeText={changeText} saveEditableItem={saveEditableItem} saveItemEnter={saveItemEnter}/>
+                </Grid>
+            </>
+        )
+    }
+
     return (
         <>
-            <DndProvider backend={HTML5Backend}>
-                <ToDoListContext.Provider value={{deleteItem, changeDone, editItem, todos, setTodos}}>
-                    <ToDoList/>
-                </ToDoListContext.Provider>
-            </DndProvider>
+            <Grid item sm={6} xs={8}>
+                <DndProvider backend={HTML5Backend}>
+                    <ToDoListContext.Provider value={{deleteItem, changeDone, editItem, todos, setTodos}}>
+                        <ToDoList/>
+                    </ToDoListContext.Provider>
+                </DndProvider>
+            </Grid>
 
-            <AddForm text={text} editing={editing} saveItem={saveItem}
-                 changeText={changeText} saveEditableItem={saveEditableItem}/>
+            <Grid item sm={3} xs={3}>
+                <AddForm text={text} editing={editing} saveItem={saveItem}
+                         changeText={changeText} saveEditableItem={saveEditableItem} saveItemEnter={saveItemEnter}/>
+            </Grid>
         </>
     )
 }
