@@ -44,27 +44,6 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 18,
     },
 
-    addForm__editButton: {
-        marginLeft: 5,
-        [theme.breakpoints.down('sm')]: {
-            marginTop: 7,
-            marginLeft: 28,
-        }
-    },
-    addForm__saveButton: {
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: 28,
-        }
-    },
-    addForm__inputField: {
-        width: '95%',
-        marginBottom: 7,
-    },
-    addForm__label: {
-        fontFamily: 'Caveat',
-        fontSize: 20,
-    },
-
     todoList: {
         backgroundColor: theme.palette.secondary.main,
         borderRadius: 20,
@@ -75,7 +54,6 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
     todoList__button: {
-        marginLeft: -30,
         height: 25,
         marginTop: 5,
         marginBottom: 5,
@@ -95,17 +73,10 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 30,
         fontWeight: 500,
     },
-
-    footer__info: {
-        fontFamily: 'Caveat',
-        fontWeight: 'bold',
-        fontSize: 20,
+    todoList__inputField: {
+        width: '95%'
     },
-    footer: {
-        backgroundColor: theme.palette.primary.main,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 35,
+    todoList__addButton: {
+        marginLeft: 5
     },
 }))

@@ -1,9 +1,8 @@
 import React from "react"
 import {Header} from "./Header"
-import {Footer} from "./Footer"
 import {ToDoContainer} from "./ToDoContainer"
 import {ThemeProvider} from "@material-ui/core/styles"
-import {theme, useStyles} from "./Styles"
+import {theme} from "./Styles"
 import Grid from "@material-ui/core/Grid"
 
 export const App: React.FC = () => {
@@ -17,10 +16,6 @@ export const App: React.FC = () => {
                 <Grid item sm={3}/>
 
                 <ToDoContainer/>
-
-                {/*<Grid item xs={12}>*/}
-                {/*    <Footer/>*/}
-                {/*</Grid>*/}
             </Grid>
         </ThemeProvider>
     );

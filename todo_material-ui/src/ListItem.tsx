@@ -11,6 +11,7 @@ import {useStyles} from "./Styles"
 import CheckBox from "@material-ui/core/Checkbox"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
+import TextField from "@material-ui/core/TextField"
 
  const ListItem: React.FC<ListItemProps> = ({id, data, done, index, moveToDo}) => {
     const context = useContext(ToDoListContext)
@@ -69,9 +70,15 @@ import Typography from "@material-ui/core/Typography"
     return (
         <li ref={ref}>
             <form>
-                <FormControlLabel control={<CheckBox onChange={() => context.changeDone(id)} id={id} color={"primary"}/>}
-                                  className={labelStyle}
-                                  label={<Typography className={classes.todoList_label}>{data}</Typography>}/>
+                {context.editing && context.target === id ? <TextField color="primary"
+                                                                       value={context.editingText}
+                                                                       onChange={context.changeEditingText}
+                                                                       onKeyDown={context.editItemEnter}
+                                                                       className={classes.todoList__inputField}/> :
+
+                                    <FormControlLabel control={<CheckBox onChange={() => context.changeDone(id)} id={id} color={"primary"}/>}
+                                                      className={labelStyle}
+                                                      label={<Typography className={classes.todoList_label}>{data}</Typography>}/> }
 
                 <br/>
 

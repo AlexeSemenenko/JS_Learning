@@ -1,13 +1,10 @@
-import React, {useMemo, useState} from "react"
+import React, {useState} from "react"
 import {DndProvider} from "react-dnd"
 import {HTML5Backend} from "react-dnd-html5-backend"
 import {ToDoListContext} from "./Context"
 import {ToDoList} from "./ToDoList"
-import {AddForm} from "./AddForm"
 import {TodoType} from "./Types"
 import Grid from "@material-ui/core/Grid"
-import {Typography, Box} from "@material-ui/core"
-import {useStyles} from "./Styles"
 
 export let ToDoContainer: React.FC = () => {
     const [todos, setTodos] = useState<TodoType[]>([])
@@ -15,24 +12,10 @@ export let ToDoContainer: React.FC = () => {
     const [editing, setEditing] = useState<boolean>(false)
     const [target, setTarget] = useState<string>('')
     const [counter, setCounter] = useState<number>(0)
+    const [editingText, setEditingText] = useState<string>('')
 
-    function changeText(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        setText(event.target.value)
-    }
-
-    function saveItem() {
-        if (text === '') {
-            return
-        }
-
-        setTodos([...todos, {
-            id: 'todo_item' + counter,
-            done: false,
-            data: text
-        }])
-        const k = counter + 1
-        setCounter(k)
-        setText('')
+    function changeEditingText(event: React.ChangeEvent<HTMLTextAreaElement>) {
+        setEditingText(event.target.value)
     }
 
     function deleteItem(id: string) {
@@ -56,23 +39,8 @@ export let ToDoContainer: React.FC = () => {
         setTodos(newTodos)
     }
 
-    function editItem(id: string) {
-        let editable = ''
-        const array = todos.slice()
-
-        array.forEach(item =>{
-            if (item.id === id) {
-                editable = item.data
-            }
-        })
-
-        setText(editable)
-        setTarget(id)
-        setEditing(true)
-    }
-
     function saveEditableItem() {
-        const newData = text
+        const newData = editingText
         let newTodos = todos.slice()
 
         newTodos = newTodos.map(item => {
@@ -82,56 +50,61 @@ export let ToDoContainer: React.FC = () => {
             return item
         })
 
-        setText('')
+        setEditingText('')
         setEditing(false)
         setTodos(newTodos)
         setTarget('')
     }
 
-    function saveItemEnter(event: React.KeyboardEvent<HTMLDivElement>) {
-        if (event.key === 'Enter' && !editing) {
-            event.preventDefault()
-            saveItem()
-        } else if (event.key === 'Enter' && editing) {
+    function editItem(id: string) {
+        if (editing) {
+            saveEditableItem()
+        } else {
+            let editable = ''
+            const array = todos.slice()
+
+            array.forEach(item =>{
+                if (item.id === id) {
+                    editable = item.data
+                }
+            })
+
+            setEditingText(editable)
+            setTarget(id)
+            setEditing(true)
+        }
+    }
+
+    function editItemEnter(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === 'Enter' && editing) {
             event.preventDefault()
             saveEditableItem()
         }
-
     }
 
-    const classes = useStyles()
+    function addNewItem() {
+        setTodos([...todos, {
+            id: 'todo_item' + counter,
+            done: false,
+            data: ''
+        }])
 
-    if (todos.length === 0) {
-        return (
-            <>
-                <Grid item sm={6} xs={8} className={classes.emptyBox}>
-                    <Box>
-                        <Typography className={classes.emptyBox__text}>The to-do list is empty. It's time to add something!</Typography>
-                    </Box>
-                </Grid>
+        setEditing(true)
+        setTarget('todo_item' + counter)
 
-                <Grid item sm={3} xs={3}>
-                    <AddForm text={text} editing={editing} saveItem={saveItem}
-                             changeText={changeText} saveEditableItem={saveEditableItem} saveItemEnter={saveItemEnter}/>
-                </Grid>
-            </>
-        )
+        const k = counter + 1
+        setCounter(k)
     }
 
     return (
-        <>
-            <Grid item sm={6} xs={8}>
+            <Grid item xs={12} md={6}>
                 <DndProvider backend={HTML5Backend}>
-                    <ToDoListContext.Provider value={{deleteItem, changeDone, editItem, todos, setTodos}}>
+                    <ToDoListContext.Provider value={{deleteItem, changeDone, editItem, todos,
+                                                    setTodos, editing, editingText, changeEditingText,
+                                                    editItemEnter, target, addNewItem}}>
                         <ToDoList/>
                     </ToDoListContext.Provider>
                 </DndProvider>
             </Grid>
-
-            <Grid item sm={3} xs={3}>
-                <AddForm text={text} editing={editing} saveItem={saveItem}
-                         changeText={changeText} saveEditableItem={saveEditableItem} saveItemEnter={saveItemEnter}/>
-            </Grid>
-        </>
     )
 }
