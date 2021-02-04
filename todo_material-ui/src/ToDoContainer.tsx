@@ -41,19 +41,24 @@ export let ToDoContainer: React.FC = () => {
 
     function saveEditableItem() {
         const newData = editingText
-        let newTodos = todos.slice()
 
-        newTodos = newTodos.map(item => {
-            if (item.id === target) {
-                item.data = newData
-            }
-            return item
-        })
+        if (newData === '') {
+            deleteItem(target)
+        } else {
+            let newTodos = todos.slice()
 
-        setEditingText('')
-        setEditing(false)
-        setTodos(newTodos)
-        setTarget('')
+            newTodos = newTodos.map(item => {
+                if (item.id === target) {
+                    item.data = newData
+                }
+                return item
+            })
+
+            setEditingText('')
+            setEditing(false)
+            setTodos(newTodos)
+            setTarget('')
+        }
     }
 
     function editItem(id: string) {
