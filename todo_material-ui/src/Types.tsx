@@ -6,11 +6,6 @@ export type TodoType = {
     data: string
 }
 
-export type foundItem = {
-    todo_item: TodoType
-    index: number
-}
-
 export type ListItemProps = {
     id: string
     data: string

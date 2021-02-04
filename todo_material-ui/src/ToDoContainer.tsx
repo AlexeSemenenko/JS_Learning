@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useMemo, useState} from "react"
 import {DndProvider} from "react-dnd"
 import {HTML5Backend} from "react-dnd-html5-backend"
 import {ToDoListContext} from "./Context"
@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid"
 import {Typography, Box} from "@material-ui/core"
 import {useStyles} from "./Styles"
 
-export const ToDoContainer: React.FC = () => {
+export let ToDoContainer: React.FC = () => {
     const [todos, setTodos] = useState<TodoType[]>([])
     const [text, setText] = useState<string>('')
     const [editing, setEditing] = useState<boolean>(false)

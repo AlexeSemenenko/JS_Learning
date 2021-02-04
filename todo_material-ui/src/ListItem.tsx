@@ -12,7 +12,7 @@ import CheckBox from "@material-ui/core/Checkbox"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Typography from "@material-ui/core/Typography"
 
-export const ListItem: React.FC<ListItemProps> = ({id, data, done, index, moveToDo}) => {
+ const ListItem: React.FC<ListItemProps> = ({id, data, done, index, moveToDo}) => {
     const context = useContext(ToDoListContext)
 
     const ref = useRef<HTMLLIElement>(null)
@@ -89,3 +89,5 @@ export const ListItem: React.FC<ListItemProps> = ({id, data, done, index, moveTo
         </li>
     )
 }
+
+export default React.memo(ListItem)

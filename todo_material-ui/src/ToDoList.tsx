@@ -1,5 +1,5 @@
 import React, {useCallback, useContext} from "react"
-import {ListItem} from "./ListItem"
+import ListItem from "./ListItem"
 import {ToDoListContext} from "./Context"
 import update from "immutability-helper"
 import Box from "@material-ui/core/Box"
